@@ -10,9 +10,9 @@ services:
     volumes:
       - qgis_data:/data
     restart: unless-stopped
-    environment:
-      APP_USERNAME: env:APP_USERNAME
-      APP_PASSWORD_HASH: env:APP_PASSWORD_HASH
+    env_file:
+      - .env
+
     depends_on:
       - qgis
   qgis:
