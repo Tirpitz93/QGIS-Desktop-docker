@@ -20,7 +20,7 @@ docker-compose up -d
 - access the vnc as localhost:8080
 - webdav is available at localhost:8080/webdav
 
-![](images\img.png)
-![](images\img_1.png)
+![](images/img.png)
+![](images/img_1.png)
 
 
