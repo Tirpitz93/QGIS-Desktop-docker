@@ -1,0 +1,28 @@
+version: '3.x'
+services:
+  caddy:
+    build:
+      context: caddy
+      dockerfile: Dockerfile
+
+    ports:
+      - "8080:8080"
+    volumes:
+      - qgis_data:/data
+    restart: unless-stopped
+    environment:
+      APP_USERNAME: env:APP_USERNAME
+      APP_PASSWORD_HASH: env:APP_PASSWORD_HASH
+    depends_on:
+      - qgis
+  qgis:
+    build:
+      context: qgis
+      dockerfile: Dockerfile
+    volumes:
+      - qgis_data:/data
+    restart: unless-stopped
+volumes:
+
+  qgis_data:
+
