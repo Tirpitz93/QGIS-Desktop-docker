@@ -1,5 +1,4 @@
 FROM golang:1.14-buster AS easy-novnc-build
-LABEL authors="lselter"
 
 WORKDIR /src
 RUN --mount=type=cache,target=/root/.cache/go-build \
@@ -21,7 +20,7 @@ RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
 
 RUN mkdir -m755 -p /etc/apt/keyrings
 
-RUN echo "Types: deb deb-src" >> /etc/apt/sources.list.d/qgis.sources
+RUN echo "Types: deb deb-src" > /etc/apt/sources.list.d/qgis.sources
 RUN echo "URIs: https://qgis.org/debian" >> /etc/apt/sources.list.d/qgis.sources
 RUN echo "Suites: `lsb_release -cs`" >> /etc/apt/sources.list.d/qgis.sources
 RUN echo "Architectures: amd64" >> /etc/apt/sources.list.d/qgis.sources
