@@ -35,7 +35,7 @@ RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
     --mount=target=/var/cache/apt,type=cache,sharing=locked \
     rm -f /etc/apt/apt.conf.d/docker-clean &&\
-    apt update &&  apt-get install qgis qgis-plugin-grass -y
+    apt update &&  apt-get install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
