@@ -1,7 +1,7 @@
 Types: deb deb-src
 URIs: https://qgis.org/debian
 Suites: {codename}
-Architectures: amd64 i386 source
+Architectures: source
 Components: main
 Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg
 Pin-Priority: 990
