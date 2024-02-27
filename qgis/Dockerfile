@@ -11,8 +11,8 @@ FROM debian:bookworm
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
     --mount=target=/var/cache/apt,type=cache,sharing=locked \
     rm -f /etc/apt/apt.conf.d/docker-clean &&\
-    apt-get update -y && \
-    apt-get install -y --no-install-recommends  gnupg software-properties-common \
+    apt update -y && \
+    apt install -y --no-install-recommends  gnupg software-properties-common \
     openbox tigervnc-standalone-server supervisor gosu  gnupg \
     software-properties-common lxterminal nano wget openssh-client rsync \
     ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip
@@ -22,14 +22,12 @@ RUN mkdir -m755 -p /etc/apt/keyrings
 
 COPY qgis.sources /etc/apt/sources.list.d/qgis.sources
 
-RUN cat /etc/apt/sources.list.d/qgis.sources
-#
 RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg
-#
+
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
     --mount=target=/var/cache/apt,type=cache,sharing=locked \
     rm -f /etc/apt/apt.conf.d/docker-clean &&\
-    apt update &&  apt-get install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
+    apt update &&  apt install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
