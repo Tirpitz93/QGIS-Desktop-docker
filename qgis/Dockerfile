@@ -8,7 +8,7 @@ RUN go mod init build && \
 FROM debian:bookworm
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu install gnupg software-properties-common wget && \
+    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu gnupg software-properties-common wget && \
     rm -rf /var/lib/apt/lists
 
 RUN apt-get update -y && \
