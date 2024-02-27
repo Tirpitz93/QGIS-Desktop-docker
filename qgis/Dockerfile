@@ -8,10 +8,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 
 FROM debian:bookworm
 
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-    --mount=target=/var/cache/apt,type=cache,sharing=locked \
-    rm -f /etc/apt/apt.conf.d/docker-clean &&\
-    apt update -y && \
+RUN apt update -y && \
     apt install -y --no-install-recommends  gnupg software-properties-common \
     openbox tigervnc-standalone-server supervisor gosu  gnupg \
     software-properties-common lxterminal nano wget openssh-client rsync \
@@ -24,10 +21,7 @@ COPY qgis.sources /etc/apt/sources.list.d/qgis.sources
 
 RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg
 
-RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
-    --mount=target=/var/cache/apt,type=cache,sharing=locked \
-    rm -f /etc/apt/apt.conf.d/docker-clean &&\
-    apt update &&  apt install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
+RUN apt update &&  apt install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
