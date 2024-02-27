@@ -20,14 +20,8 @@ RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
 
 RUN mkdir -m755 -p /etc/apt/keyrings
 
-RUN echo "Types: deb deb-src" > /etc/apt/sources.list.d/qgis.sources
-RUN echo "URIs: https://qgis.org/debian" >> /etc/apt/sources.list.d/qgis.sources
-RUN echo "Suites: buster" >> /etc/apt/sources.list.d/qgis.sources
-RUN echo "Architectures: amd64" >> /etc/apt/sources.list.d/qgis.sources
-RUN echo "Components: main" >> /etc/apt/sources.list.d/qgis.sources
-RUN echo "Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg" >> /etc/apt/sources.list.d/qgis.sources
+COPY qgis.sources /etc/apt/sources.list.d/qgis.sources
 
-run echo "TEST"
 RUN cat /etc/apt/sources.list.d/qgis.sources
 #
 RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg
