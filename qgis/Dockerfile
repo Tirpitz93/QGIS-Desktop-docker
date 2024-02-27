@@ -1,28 +1,38 @@
 FROM golang:bookworm AS easy-novnc-build
-
 WORKDIR /src
-RUN --mount=type=cache,target=/root/.cache/go-build \
-    go mod init build  &&\
+RUN go mod init build && \
     go get github.com/geek1011/easy-novnc@v1.1.0 && \
     go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
+
 FROM debian:bookworm
 
-RUN apt update -y && \
-    apt install -y --no-install-recommends  gnupg software-properties-common \
-    openbox tigervnc-standalone-server supervisor gosu  gnupg \
-    software-properties-common lxterminal nano wget openssh-client rsync \
-    ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends openbox tigervnc-standalone-server supervisor gosu && \
+    rm -rf /var/lib/apt/lists
 
 
-RUN mkdir -m755 -p /etc/apt/keyrings
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends lxterminal nano wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
+    rm -rf /var/lib/apt/lists
+
+RUN apt-get update -y && \
+        apt-get install gnupg software-properties-common wget -y
+
+RUN  mkdir -p /usr/share/desktop-directories
+
+
+
 
 COPY qgis.sources /etc/apt/sources.list.d/qgis.sources
 
 RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg
+RUN sed -i "s/{codename}/`lsb_release -cs`/g" /etc/apt/sources.list.d/qgis.sources
 
-RUN apt update &&  apt install qgis qgis-plugin-grass python-qgis qgis-providers  qgis-common -y
+RUN apt update &&  apt list qgis -a
 
+RUN apt install qgis qgis-plugin-grass -y
+#RUN exit 1
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
