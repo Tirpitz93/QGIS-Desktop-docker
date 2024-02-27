@@ -1,4 +1,4 @@
-FROM golang:1.14-buster AS easy-novnc-build
+FROM golang:bookworm AS easy-novnc-build
 
 WORKDIR /src
 RUN --mount=type=cache,target=/root/.cache/go-build \
@@ -6,7 +6,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
     go get github.com/geek1011/easy-novnc@v1.1.0 && \
     go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
-FROM debian:buster
+FROM debian:bookworm
 
 RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
     --mount=target=/var/cache/apt,type=cache,sharing=locked \
