@@ -31,7 +31,7 @@ RUN sed -i "s/{codename}/`lsb_release -cs`/g" /etc/apt/sources.list.d/qgis.sourc
 
 RUN apt update &&  apt list qgis -a
 
-RUN apt install qgis qgis-plugin-grass -y
+RUN apt-src install qgis qgis-plugin-grass -y
 #RUN exit 1
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
