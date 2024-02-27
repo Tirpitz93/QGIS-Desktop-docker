@@ -145,9 +145,9 @@ COPY qgis.sources /etc/apt/sources.list.d/qgis.sources
 RUN wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg
 RUN sed -i "s/{codename}/`lsb_release -cs`/g" /etc/apt/sources.list.d/qgis.sources
 
-RUN apt update &&  apt list qgis -a
+RUN apt-get update
 
-RUN apt-src install qgis qgis-plugin-grass -y
+RUN apt-get install qgis qgis-plugin-grass -y
 #RUN exit 1
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
