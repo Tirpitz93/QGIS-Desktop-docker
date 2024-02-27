@@ -12,9 +12,10 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists
 
 RUN apt-get update -y && \
-        apt-get install gnupg software-properties-common wget -y \
+        apt-get install gnupg software-properties-common wget -y
 
 RUN  mkdir -p /usr/share/desktop-directories
+
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
     lxterminal \
