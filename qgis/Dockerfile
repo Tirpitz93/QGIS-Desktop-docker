@@ -22,7 +22,7 @@ RUN mkdir -m755 -p /etc/apt/keyrings
 
 RUN echo "Types: deb deb-src" > /etc/apt/sources.list.d/qgis.sources
 RUN echo "URIs: https://qgis.org/debian" >> /etc/apt/sources.list.d/qgis.sources
-RUN echo "Suites: `env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME'`" >> /etc/apt/sources.list.d/qgis.sources
+RUN echo "Suites: buster" >> /etc/apt/sources.list.d/qgis.sources
 RUN echo "Architectures: amd64" >> /etc/apt/sources.list.d/qgis.sources
 RUN echo "Components: main" >> /etc/apt/sources.list.d/qgis.sources
 RUN echo "Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg" >> /etc/apt/sources.list.d/qgis.sources
