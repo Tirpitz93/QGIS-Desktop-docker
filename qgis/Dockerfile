@@ -40,6 +40,7 @@ RUN apt-get install qgis qgis-plugin-grass qgis-server -y
 #RUN exit 1
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
+COPY rc.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 
 
