@@ -1,6 +1,8 @@
 FROM golang:1.14-stretch AS caddy-build
 LABEL authors="lselter"
+RUN echo "deb http://security.debian.org/debian-security stretch-security main contrib non-free" > /etc/apt/sources.list
 
+RUN apt-get update
 ENTRYPOINT ["top", "-b"]
 
 
@@ -16,7 +18,9 @@ RUN echo 'package main' > caddy.go && \
 RUN go build -o /bin/caddy .
 
 FROM debian:stretch
+RUN echo "deb http://security.debian.org/debian-security stretch-security main contrib non-free" > /etc/apt/sources.list
 
+RUN apt-get update
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends gosu && \
     rm -rf /var/lib/apt/lists
