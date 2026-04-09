@@ -1,4 +1,4 @@
-FROM golang:1.14-buster AS caddy-build
+FROM golang:1.14-stretch AS caddy-build
 LABEL authors="lselter"
 
 ENTRYPOINT ["top", "-b"]
@@ -15,7 +15,7 @@ RUN echo 'package main' > caddy.go && \
     echo 'func main() { caddycmd.Main() }' >> caddy.go
 RUN go build -o /bin/caddy .
 
-FROM debian:buster
+FROM debian:stretch
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends gosu && \
