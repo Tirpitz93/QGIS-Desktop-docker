@@ -1,19 +1,22 @@
 services:
   caddy:
     build:
-      context: caddy
+      context: ./caddy
       dockerfile: Dockerfile
-
-    ports:
-      - "8080:8080"
-    volumes:
-      - qgis_data:/data
+    image: qgis-caddy-webdav:latest
     restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - qgis_data:/srv
+      - caddy_data:/data
+      - caddy_config:/config
     env_file:
       - .env
-
     depends_on:
       - qgis
+
   qgis:
     build:
       context: qgis
@@ -21,7 +24,8 @@ services:
     volumes:
       - qgis_data:/data
     restart: unless-stopped
+
 volumes:
-
   qgis_data:
-
+  caddy_data:
+  caddy_config:
